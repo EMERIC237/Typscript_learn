@@ -1,0 +1,1 @@
+console.log("analystic view on (updaed)");
