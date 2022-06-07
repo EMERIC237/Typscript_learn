@@ -1,0 +1,22 @@
+{
+  "name": "typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EMERIC237/Typscript_learn.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EMERIC237/Typscript_learn/issues"
+  },
+  "homepage": "https://github.com/EMERIC237/Typscript_learn#readme",
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }
+}
