@@ -1,110 +1,78 @@
-abstract class Department {
-  static fiscalYear = 2020;
-  //   private name: string;
-  // To make the property private, we can use the private keyword
-  protected employees: string[] = [];
+//Interface
 
-  constructor(protected readonly id: string, public name: string) {
-    // this.name = n;
+interface Person {
+  firstName: string;
+  lastName: string;
+  age: number;
+
+  greet(lastName: string): void;
+}
+
+let user1: Person = {
+  firstName: "Max",
+  lastName: "Mustermann",
+  age: 30,
+  greet(greeting: string) {
+    console.log(
+      greeting + " my name is " + this.firstName + " " + this.lastName
+    );
+  },
+};
+
+user1.greet("Hi there");
+
+////
+////
+////
+type addFn = (num1: number, num2: number) => number;
+let add: addFn;
+add = (n1: number, n2: number) => {
+  return n1 + n2;
+};
+//OR//
+interface addFn2 {
+  (num1: number, num2: number): number;
+}
+let add2: addFn2;
+add2 = (n1: number, n2: number) => {
+  return n1 + n2;
+};
+
+interface age {
+  readonly age?: number;
+}
+interface Greetable extends age {
+  firstName: string;
+  lastName: string;
+  greet(greeting: string): void;
+}
+
+class Person2 implements Greetable {
+  readonly firstName: string; /*To make it clear that the name can be set only one time*/
+  readonly lastName: string;
+  age?: number;
+
+  constructor(firstName: string, lastName: string, age?: number) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    if (age) {
+      console.log(`age is ${age}`);
+      this.age = age;
+    }
+   
   }
 
-  abstract describe(this: Department): void;
-
-  addEmployee(this: Department, empName: string) {
-    this.employees.push(empName);
-  }
-
-  printEmployeeInformation(this: Department) {
-    console.log(this.employees.length);
-    console.log(this.employees);
-  }
-
-  static createEmployee(empName: string) {
-    return { name: empName };
+  greet(greeting: string) {
+    if (this.age) {
+      console.log(
+        `${greeting} my name is ${this.firstName} ${this.lastName} and I am ${this.age}`
+      );
+    } else {
+      console.log(`${greeting} my name is ${this.firstName} ${this.lastName}`);
+    }
   }
 }
 
-// create IT department from department
-class ITDepartment extends Department {
-  constructor(id: string, private admins: string[]) {
-    super(id, "IT");
-  }
-
-  describe(): void {
-    console.log("IT Department - ID: " + this.id);
-  }
-
-  addAdmin(this: ITDepartment, admin: string) {
-    this.admins.push(admin);
-  }
-}
-
-class AccountingDepartment extends Department {
-  private lastreport: string;
-  private static instance: AccountingDepartment;
-
-  get mostRecentReport(): string {
-    //has to return something
-    if (this.lastreport) {
-      return this.lastreport;
-    }
-    throw new Error("No report found");
-  }
-
-  set mostRecentReport(value: string) {
-    if (!value) {
-      throw new Error("Please pass in a valid value");
-    }
-    this.addReport(value);
-  }
-
-  // to preven the creation of a new instance of the class, we can use the private keyword on the constructor
-  private constructor(id: string, private reports: string[]) {
-    super(id, "Accounting");
-    this.lastreport = reports[0];
-  }
-
-  describe(): void {
-    console.log("Accounting Department - ID: " + this.id);
-  }
-
-  addEmployee(empName: string): void {
-    if (empName === "Max") {
-      // create and throw error
-      throw new Error("Max is not allowed");
-    }
-    this.employees.push(empName);
-  }
-
-  addReport(report: string): void {
-    this.reports.push(report);
-    this.lastreport = report;
-  }
-
-  static getInstance() {
-    if (this.instance) {
-      return this.instance;
-    }
-    this.instance = new AccountingDepartment("d1", []);
-    return this.instance;
-  }
-}
-
-//create a new employee from department using the static method
-const employee1 = Department.createEmployee("Max");
-console.log(employee1, Department.fiscalYear);
-
-const iTDepartment = new ITDepartment("id2", ["Emeric"]);
-iTDepartment.addEmployee("Max");
-iTDepartment.addEmployee("Manu");
-iTDepartment.describe();
-iTDepartment.printEmployeeInformation();
-
-// const accountingDP = new AccountingDepartment("id3", ["lIONEL"]);
-const accountingDP = AccountingDepartment.getInstance();
-accountingDP.mostRecentReport = "Report 1";
-console.log("this is the most recent report: ", accountingDP.mostRecentReport);
-accountingDP.addEmployee("ASHLEY");
-accountingDP.addEmployee("FABI");
-accountingDP.describe();
-accountingDP.printEmployeeInformation();
+let user2: Greetable;
+user2 = new Person2("eme", "Fabi", 30);
+user2.greet("Hi there");
