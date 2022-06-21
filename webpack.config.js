@@ -6,7 +6,7 @@ module.exports = {
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
-    publicPath: "dist",
+    publicPath: "/dist/",
   },
   module: {
     rules: [
@@ -16,6 +16,11 @@ module.exports = {
         exclude: /node_modules/,
       },
     ],
+  },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, "./"),
+    },
   },
   resolve: {
     extensions: [".ts", ".js"],
