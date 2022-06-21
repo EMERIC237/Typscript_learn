@@ -1,10 +1,6 @@
-// // classes to render the project and project list
-//speial syntax to import namespaces
-/// <reference path="components/project-list.ts"/>
-/// <reference path="components/project-input.ts"/>
-
-namespace App {
-  new ProjectInput();
-  new ProjectList("active");
-  new ProjectList("finished");
-}
+// // classes to render the project and project li
+import { ProjectInput } from "./components/project-input";
+import { ProjectList } from "./components/project-list";
+new ProjectInput();
+new ProjectList("active");
+new ProjectList("finished");
