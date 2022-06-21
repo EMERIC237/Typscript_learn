@@ -1,4 +1,4 @@
-import { Draggable } from "../models/drag-drop-interfaces.js";
+import { Draggable } from "../models/drag-drop-interfaces";
 import { Component } from "./base-components";
 import { Project } from "../models/project";
 
